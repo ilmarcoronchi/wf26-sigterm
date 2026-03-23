@@ -17,6 +17,9 @@ RUN groupadd -r jboss && useradd -r -g jboss -m -d /opt/jboss jboss
 # Copia i binari di WildFly
 COPY --from=wildfly-server --chown=jboss:jboss /opt/jboss/wildfly ${JBOSS_HOME}
 
+# Create admin user for management console (non-interactive)
+RUN ${JBOSS_HOME}/bin/add-user.sh -m -u admin -p Secret99 --silent || true
+
 # Installazione Tini
 RUN apt-get update && apt-get install -y --no-install-recommends tini && rm -rf /var/lib/apt/lists/*
 

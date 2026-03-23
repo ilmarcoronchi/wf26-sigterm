@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+
+<installation xmlns="urn:jboss:galleon:provisioning:3.0">
+    <feature-pack location="wildfly@maven(org.jboss.universe:community-universe):current#26.1.2.Final">
+        <default-configs inherit="false"/>
+        <packages inherit="false"/>
+    </feature-pack>
+    <config model="standalone" name="standalone.xml">
+        <layers>
+            <include name="jaxrs"/>
+            <include name="core-tools"/>
+            <include name="cdi"/>
+            <include name="web-server"/>
+            <include name="web-console"/>
+            <include name="management"/>
+            <include name="jmx-remoting"/>
+        </layers>
+    </config>
+    <options>
+        <option name="optional-packages" value="passive+"/>
+    </options>
+</installation>

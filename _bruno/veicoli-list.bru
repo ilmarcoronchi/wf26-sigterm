@@ -1,0 +1,16 @@
+meta {
+  name: veicoli-list
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://{{base-url}}/api/rest/v0/veicoli/
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

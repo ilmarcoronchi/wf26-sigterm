@@ -1,0 +1,16 @@
+meta {
+  name: sinistri-list
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://{{base-url}}/api/rest/v0/sinistri/
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

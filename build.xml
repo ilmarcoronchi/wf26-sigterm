@@ -1,0 +1,109 @@
+<project name="wf26-sigterm" >
+
+	<property file="build.properties" />
+
+
+	<!-- mvn -N io.takari:maven:wrapper -Dmaven=3.9.9 -->
+	<!-- Default LC Maven phase: validate, compile, test, package, verify, install, deploy -->
+
+	<!-- -DskipTests=true -Dmaven.test.skip=true -->
+
+
+
+	<target name="30.app-install">
+		<exec executable="mvnw.cmd">
+			<env key="JAVA_HOME" value="${JAVA_HOME}"/>
+			<arg value="clean"/>
+			<arg value="install"/>
+			<arg value="-Dmaven.test.skip=true"/>
+			<arg value="-U"/>
+		</exec>
+	</target>
+
+
+
+
+    
+
+
+
+	<target name="wf-log-show">
+		<!-- Carica il contenuto del file nella prop fileContent -->
+		<loadfile property="fileContent" srcFile="${WF_HOME}/standalone/log/server.log"/>
+		<echo>${fileContent}</echo>
+	</target>
+
+	<target name="wf-log-delete">
+		<delete file="${WF_HOME}/standalone/log/server.log"/>
+	</target>
+
+
+
+
+	<!-- standalone\deployments -->
+	<target name="31.app-deploy" depends="30.app-install">
+		<copy file="target/${APP_NAME}.war" toDir="${WF_HOME}/standalone/deployments/"/>
+	</target>
+
+
+
+	<target name="32.app-undeploy" >
+		<delete file="${WF_HOME}/standalone/deployments/${APP_NAME}.war" />
+	</target>
+
+
+
+
+	<target name="10.wf-start">
+		<exec executable="cmd">
+			<env key="JAVA_HOME" value="${JAVA_HOME}"/>
+			<arg value="/c" />
+			<arg value="${WF_HOME}/bin/standalone.bat" />
+		</exec>
+	</target>
+
+
+
+
+	<target name="11.wf-stop">
+		<exec executable="cmd">
+			<env key="JAVA_HOME" value="${JAVA_HOME}"/>
+			<arg value="/c" />
+			<arg value="${WF_HOME}/bin/jboss-cli.bat" />
+			<arg value="--connect" />
+			<arg value="controller=127.0.0.1:9990" />
+			<arg value="command=:shutdown" />
+		</exec>
+	</target>
+
+
+
+
+
+
+	<target name="00.wf-provisioning">
+		<exec executable="mvnw.cmd" failonerror="true">
+			<arg value="wildfly:provision"/>
+			<arg value="-Dwildfly.provisioning.file=_infra/provisioning.xml"/>
+			<arg value="-Dwildfly.provisioning.dir=${WF_HOME}"/>
+			<arg value="--non-recursive"/>
+		</exec>
+	</target>
+
+
+
+	<target name="01.wf-register-admin">
+		<exec executable="cmd">
+			<env key="JAVA_HOME" value="${JAVA_HOME}"/>
+			<arg value="/c"/>
+			<arg value="${WF_HOME}/bin/add-user.bat"/>
+			<arg value="-m"/>
+			<arg value="-u"/>
+			<arg value="admin"/>
+			<arg value="-p"/>
+			<arg value="Secret99"/>
+		</exec>
+	</target>
+
+
+</project>

@@ -1,0 +1,15 @@
+meta {
+  name: sigterm-wait
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{base-url}}/api/rest/sigterm/wait?seconds=10
+  body: none
+  auth: none
+}
+
+params:query {
+  seconds: 10
+}

@@ -1,6 +1,9 @@
 # SIGTRM
 
-Lo scopo è quello di verificare la gestione del SIGTERM e del SIGKILL di WFL
+Lo scopo è quello di verificare la gestione del SIGTERM e del SIGKILL di WF.
+
+Per una questione di SOR è corretto che la gestione del  gracefulShutdown sia affidata all'orchestratore esterno.
+NON a caso Docker prevede che all'interno del comando `docker stop` il parametro `-t` (timeout) che indica l'intervallo tra SIGTERM e SIGKILL.
 
 
 NB: Il progetto utilizza il modulo

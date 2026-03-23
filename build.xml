@@ -130,6 +130,7 @@
 		<exec executable="docker" failonerror="true">
 			<arg value="run"/>
 			<arg value="-d"/>
+			<arg value="--init"/>
 			<arg value="--name"/>
 			<arg value="${DOCKER_CONTAINER}"/>
 			<arg value="-p"/>
@@ -142,9 +143,11 @@
 
 
 	<target name="42.docker-stop"
-		description="Stop Docker container">
+		description="Stop Docker container (SIGKILL after ${DOCKER_STOP_TIMEOUT}s)">
 		<exec executable="docker">
 			<arg value="stop"/>
+			<arg value="-t"/>
+			<arg value="${DOCKER_STOP_TIMEOUT}"/>
 			<arg value="${DOCKER_CONTAINER}"/>
 		</exec>
 	</target>

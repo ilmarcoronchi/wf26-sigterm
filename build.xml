@@ -106,4 +106,57 @@
 	</target>
 
 
+
+
+	<!-- ======================================================= -->
+	<!-- Docker targets                                          -->
+	<!-- ======================================================= -->
+
+	<target name="40.docker-build" depends="30.app-install"
+		description="Build Docker image (multi-stage: WildFly + WAR)">
+		<exec executable="docker" failonerror="true">
+			<arg value="build"/>
+			<arg value="-t"/>
+			<arg value="${DOCKER_IMAGE}"/>
+			<arg value="-f"/>
+			<arg value="_infra/Dockerfile"/>
+			<arg value="."/>
+		</exec>
+	</target>
+
+
+	<target name="41.docker-run"
+		description="Run Docker container">
+		<exec executable="docker" failonerror="true">
+			<arg value="run"/>
+			<arg value="-d"/>
+			<arg value="--name"/>
+			<arg value="${DOCKER_CONTAINER}"/>
+			<arg value="-p"/>
+			<arg value="8080:8080"/>
+			<arg value="-p"/>
+			<arg value="9990:9990"/>
+			<arg value="${DOCKER_IMAGE}"/>
+		</exec>
+	</target>
+
+
+	<target name="42.docker-stop"
+		description="Stop Docker container">
+		<exec executable="docker">
+			<arg value="stop"/>
+			<arg value="${DOCKER_CONTAINER}"/>
+		</exec>
+	</target>
+
+
+	<target name="43.docker-rm" depends="42.docker-stop"
+		description="Remove Docker container">
+		<exec executable="docker">
+			<arg value="rm"/>
+			<arg value="${DOCKER_CONTAINER}"/>
+		</exec>
+	</target>
+
+
 </project>

@@ -54,15 +54,6 @@
 
 
 
-	<target name="10.wf-start">
-		<exec executable="cmd">
-			<env key="JAVA_HOME" value="${JAVA_HOME}"/>
-			<arg value="/c" />
-			<arg value="${WF_HOME}/bin/standalone.bat" />
-		</exec>
-	</target>
-
-
 
 
 	<target name="11.wf-stop">
@@ -78,32 +69,19 @@
 
 
 
+  <target name="11.wf-suspend">
+    <exec executable="cmd">
+      <env key="JAVA_HOME" value="${JAVA_HOME}"/>
+      <arg value="/c" />
+      <arg value="${WF_HOME}/bin/jboss-cli.bat" />
+      <arg value="--connect" />
+      <arg value="controller=127.0.0.1:9990" />
+      <arg value="command=:suspend" />
+    </exec>
+  </target>
 
 
 
-	<target name="00.wf-provisioning">
-		<exec executable="mvnw.cmd" failonerror="true">
-			<arg value="wildfly:provision"/>
-			<arg value="-Dwildfly.provisioning.file=_infra/provisioning.xml"/>
-			<arg value="-Dwildfly.provisioning.dir=${WF_HOME}"/>
-			<arg value="--non-recursive"/>
-		</exec>
-	</target>
-
-
-
-	<target name="01.wf-register-admin">
-		<exec executable="cmd">
-			<env key="JAVA_HOME" value="${JAVA_HOME}"/>
-			<arg value="/c"/>
-			<arg value="${WF_HOME}/bin/add-user.bat"/>
-			<arg value="-m"/>
-			<arg value="-u"/>
-			<arg value="admin"/>
-			<arg value="-p"/>
-			<arg value="Secret99"/>
-		</exec>
-	</target>
 
 
 

@@ -41,7 +41,7 @@ public class JobService {
       status.setStatus("DONE");
       status.setResult("Completato dopo " + seconds + " secondi");
 
-      log.info("Job {} completato", jobId);
+      log.info(">>> Job {} completato", jobId);
 
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
@@ -50,7 +50,7 @@ public class JobService {
       status.setResult("Interrotto");
 
       log.warn("Job {} interrotto", jobId);
-      System.err.println(">>>>>>>>>>>>>Job " + jobId + " interrotto: ");
+      System.err.println(">>>> Job " + jobId + " interrotto: ");
     }
   }
 

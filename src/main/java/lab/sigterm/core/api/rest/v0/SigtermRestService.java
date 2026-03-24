@@ -21,13 +21,14 @@ public class SigtermRestService {
     log.info("Ricevuta richiesta di attesa: {} secondi", seconds);
     try {
       Thread.sleep(seconds * 1000L);
+
     } catch (InterruptedException e) {
       System.err.println(">>>>>>>>>>>>Attesa interrotta dopo richiesta di " + seconds + " secondi");
       log.warn("Attesa interrotta dopo richiesta di {} secondi", seconds);
 
       return "Attesa interrotta dopo richiesta di " + seconds + " secondi";
     }
-    log.info("Ho aspettato {} secondi", seconds);
+    log.info(">>> Attesa di {} secondi completata", seconds);
     return "Ho aspettato " + seconds + " secondi";
   }
 

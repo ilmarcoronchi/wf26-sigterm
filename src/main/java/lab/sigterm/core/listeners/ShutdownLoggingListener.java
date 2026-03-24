@@ -17,6 +17,7 @@ public class ShutdownLoggingListener implements ServletContextListener {
 
   @Override
   public void contextDestroyed(ServletContextEvent sce) {
+    log.info("!!! [SHUTDOWN LOG] Ricevuto segnale di stop nel Listener !!!");
     System.err.println("!!! [SHUTDOWN LOG] Ricevuto segnale di stop nel Listener !!!");
   }
 }

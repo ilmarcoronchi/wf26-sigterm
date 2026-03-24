@@ -22,8 +22,9 @@ public class SigtermRestService {
     try {
       Thread.sleep(seconds * 1000L);
     } catch (InterruptedException e) {
-      Thread.currentThread().interrupt();
+      System.err.println(">>>>>>>>>>>>Attesa interrotta dopo richiesta di " + seconds + " secondi");
       log.warn("Attesa interrotta dopo richiesta di {} secondi", seconds);
+
       return "Attesa interrotta dopo richiesta di " + seconds + " secondi";
     }
     log.info("Ho aspettato {} secondi", seconds);

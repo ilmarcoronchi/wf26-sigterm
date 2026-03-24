@@ -124,13 +124,12 @@
 		</exec>
 	</target>
 
-
+  
 	<target name="41.docker-run"
 		description="Run Docker container">
 		<exec executable="docker" failonerror="true">
 			<arg value="run"/>
 			<arg value="-d"/>
-			<arg value="--init"/>
 			<arg value="--name"/>
 			<arg value="${DOCKER_CONTAINER}"/>
 			<arg value="-p"/>
@@ -140,8 +139,8 @@
 			<arg value="${DOCKER_IMAGE}"/>
 		</exec>
 	</target>
-
-
+	
+	
 	<target name="42.docker-stop"
 		description="Stop Docker container (SIGKILL after ${DOCKER_STOP_TIMEOUT}s)">
 		<exec executable="docker">

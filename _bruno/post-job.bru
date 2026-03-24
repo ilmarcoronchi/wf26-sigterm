@@ -1,0 +1,15 @@
+meta {
+  name: post-job
+  type: http
+  seq: 6
+}
+
+post {
+  url: {{base-url}}/api/rest/jobs/start?seconds=20
+  body: none
+  auth: none
+}
+
+params:query {
+  seconds: 20
+}

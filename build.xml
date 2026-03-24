@@ -23,23 +23,6 @@
 
 
 
-    
-
-
-
-	<target name="wf-log-show">
-		<!-- Carica il contenuto del file nella prop fileContent -->
-		<loadfile property="fileContent" srcFile="${WF_HOME}/standalone/log/server.log"/>
-		<echo>${fileContent}</echo>
-	</target>
-
-	<target name="wf-log-delete">
-		<delete file="${WF_HOME}/standalone/log/server.log"/>
-	</target>
-
-
-
-
 	<!-- standalone\deployments -->
 	<target name="31.app-deploy" depends="30.app-install">
 		<copy file="target/${APP_NAME}.war" toDir="${WF_HOME}/standalone/deployments/"/>
@@ -53,19 +36,7 @@
 
 
 
-
-	<target name="10.wf-start">
-		<exec executable="cmd">
-			<env key="JAVA_HOME" value="${JAVA_HOME}"/>
-			<arg value="/c" />
-			<arg value="${WF_HOME}/bin/standalone.bat" />
-		</exec>
-	</target>
-
-
-
-
-	<target name="11.wf-stop">
+	<target name="11.wf-shutdown">
 		<exec executable="cmd">
 			<env key="JAVA_HOME" value="${JAVA_HOME}"/>
 			<arg value="/c" />
@@ -76,34 +47,17 @@
 		</exec>
 	</target>
 
-
-
-
-
-
-	<target name="00.wf-provisioning">
-		<exec executable="mvnw.cmd" failonerror="true">
-			<arg value="wildfly:provision"/>
-			<arg value="-Dwildfly.provisioning.file=_infra/provisioning.xml"/>
-			<arg value="-Dwildfly.provisioning.dir=${WF_HOME}"/>
-			<arg value="--non-recursive"/>
-		</exec>
-	</target>
-
-
-
-	<target name="01.wf-register-admin">
+	<target name="10.wf-suspend">
 		<exec executable="cmd">
 			<env key="JAVA_HOME" value="${JAVA_HOME}"/>
-			<arg value="/c"/>
-			<arg value="${WF_HOME}/bin/add-user.bat"/>
-			<arg value="-m"/>
-			<arg value="-u"/>
-			<arg value="admin"/>
-			<arg value="-p"/>
-			<arg value="Secret99"/>
+			<arg value="/c" />
+			<arg value="${WF_HOME}/bin/jboss-cli.bat" />
+			<arg value="--connect" />
+			<arg value="controller=127.0.0.1:9990" />
+			<arg value="command=:suspend" />
 		</exec>
 	</target>
+
 
 
 

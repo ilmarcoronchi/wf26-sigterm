@@ -35,7 +35,6 @@ public class JobService {
 
     try {
       log.info("Job {} partito, durata {} sec", jobId, seconds);
-      System.err.println(">>>>>>>>>>>>>>Job " + jobId + " partito, durata " + seconds + " sec");
 
       Thread.sleep(seconds * 1000L);
 
@@ -43,7 +42,6 @@ public class JobService {
       status.setResult("Completato dopo " + seconds + " secondi");
 
       log.info("Job {} completato", jobId);
-      System.err.println(">>>>>>>>Job " + jobId + " completato");
 
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
